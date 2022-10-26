@@ -1,3 +1,13 @@
-from django.db import models
+from django.db.models import CharField, DateField, Model, TextField
 
-# Create your models here.
+
+class Post(Model):
+    title = CharField(max_length=128)
+    content = TextField()
+    publish_date = DateField(auto_now=True)
+
+    class Meta:
+        ordering =["-publish_date"]
+
+    def __str__(self):
+        return self.title
