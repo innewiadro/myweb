@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<h1>All users</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Firstname</th>
+        <th scope="col">Is Active</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Change password</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for profile in profile_list %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td><a href="{% url 'user-detail' profile.user.id %}">{{ profile.user.username }}</a></td>
+        <td>{{ profile.user.first_name }}</td>
+         <td>{% if user.is_active %}
+            <a class="btn btn-success" >Active</a>
+            {% else %}
+            <a class="btn btn-danger" >Inactive</a>
+            {% endif %}
+        </td>
+        <td>{% if perms.accounts.change_profile %}
+            <a class="btn btn-primary" >Update</a>
+            {% endif %}
+        </td>
+        <td>{% if perms.accounts.delete_profile %}
+            <a class="btn btn-danger" >Delete</a>
+            {% endif %}
+        </td>
+        <td>{% if perms.accounts.change_profile %}
+            <a class="btn btn-warning" >Change password</a>
+            {% endif %}
+        </td>
+    </tr>
+      {% empty %}
+        Nothing here!
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{% url 'sign-up' %}">New profile</a>
+
+{% endblock %}

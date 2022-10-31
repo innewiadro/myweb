@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Post
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group">
+        {{ form.title.errors }}
+        <label for="{{ form.title.id_for_label }}">Title</label>
+        {{ form.title }}
+    </div>
+    <div class="form-group">
+        {{ form.slug.errors }}
+        <label for="{{ form.slug.id_for_label }}">Slug</label>
+        {{ form.slug }}
+    </div>
+    <div class="form-group">
+        {{ form.content.errors }}
+        <label for="{{ form.content.id_for_label }}">Content</label>
+        {{ form.content }}
+    </div>
+    <div class="form-group">
+        {{ form.author.errors }}
+        <label for="{{ form.author.id_for_label }}">author</label>
+        {{ form.author }}
+    </div>
+    <div class="form-group">
+        {{ form.status.errors }}
+        <label for="{{ form.status.id_for_label }}">status</label>
+        {{ form.status }}
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+{% endblock %}

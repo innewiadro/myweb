@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HollyMovies</title>
+    <title>Michal Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -27,11 +27,11 @@
         </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link active" >
+            <a class="nav-item nav-link active" href="{% url 'index' %}">
               My Web
             </a>
 
-            <a class="nav-item nav-link active">
+            <a class="nav-item nav-link active" href="{% url 'about_me' %}">
               About me
             </a>
             <a class="nav-item nav-link active">
@@ -42,11 +42,11 @@
               Give Me Feedback
             </a>
 
-              {% if perms.accounts.view_profile %}
-                <a class="nav-item nav-link active">
+
+                <a class="nav-item nav-link active" href="{% url 'user-list' %}">
                     Users
                 </a>
-                {% endif %}
+
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
                 {% else %}Hello, {{ user.username }}!{% endif %}
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item text-right" >Logout</a>
+                <a class="dropdown-item text-right" href="{% url 'logout' %} " >Logout</a>
                 <a class="dropdown-item text-right" >Change password</a>
                 <a class="dropdown-item text-right">Biography</a>
             </div>
@@ -68,7 +68,7 @@
                 You are not logged in.
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item text-right" >Login</a>
+                <a class="dropdown-item text-right" href="{% url 'login' %}" >Login</a>
                 <a class="dropdown-item text-right" href="{% url 'sign-up' %}" >Sign Up</a>
                 <a class="dropdown-item text-right" >Reset password</a>
             </div>
@@ -82,6 +82,26 @@
       </div>
     </div>
 <div class="jumbotron text-center" style="margin-bottom:0">
+    <a class="btn btn-primary" href="{% url 'post-create' %}">New post</a>
+    <div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for post in post_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
   <p>Footer</p>
 </div>
 
